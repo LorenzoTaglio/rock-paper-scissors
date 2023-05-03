@@ -23,12 +23,17 @@ CREATE variable win and set it to null
         IF computer is Scissors
             SET win to true
         ELSE IF computer is Paper
+            SET win to false
     ELSE IF player is Paper
         IF computer is Rock
+            SET win to true
         ELSE IF computer Scissors
+            SET win to false
     ELSE
         IF computer is Paper
+            SET win to true
         ELSE IF computer is Rock
+            SET win to false
 */  
 function playRound(playerSelection, computerSelection){
     let win;

@@ -17,6 +17,10 @@ function getComputerChoice() {
         return "Scissors";
 }
 
+function capitalize(string){
+    return string.substring(0,1).toUpperCase() + string.substring(1).toLowerCase();
+}
+
 /*
 CREATE variable win and set it to null
     IF player is Rock 
@@ -34,9 +38,10 @@ CREATE variable win and set it to null
             SET win to true
         ELSE IF computer is Rock
             SET win to false
-*/  
+*/
 function playRound(playerSelection, computerSelection){
     let win;
+    playerSelection = capitalize(playerSelection);
     switch (playerSelection) {
         case "Rock":
             win = computerSelection === "Scissors" ? true

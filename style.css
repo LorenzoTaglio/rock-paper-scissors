@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+.images{
+    width: 100%;
+    aspect-ratio: 3;
+    background-color: #ff9f30;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    margin: 64px 10px;
+}
+
+button{
+    width: 128px;
+    aspect-ratio: 1;
+    border: 2px solid#fff;
+    font-size: 32px;
+    color: white;
+    background-color: transparent;
+    transition: all 30ms linear;
+}
+
+button:hover{
+    animation: moveAround 700ms linear 0s infinite;
+}
+
+@keyframes moveAround {
+    0%{
+        transform: rotateZ(0deg);
+    }25%{
+        transform: rotateZ(20deg);
+    }50%{
+        transform: rotateZ(0deg);
+    }
+    75%{
+        transform: rotateZ(-20deg);
+    }100%{
+        transform: rotateZ(0deg);
+    }
+}
+
+button:active{
+    border-color: #ff9f30;
+    color: #ff9f30;
+}

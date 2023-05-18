@@ -8,7 +8,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="images"></div>
+    <button class="retry">Retry</button>
+    <div class="upper-content">
+        <div class="image left">
+            <div class="img-container">
+                <img class="hidden" data-move="Rock" src="images/fist-bump1.png" alt="rock">
+                <img class="hidden" data-move="Paper" src="images/open-hand.png" alt="paper">
+                <img class="hidden" data-move="Scissors" src="images/victory.png" alt="scissors">
+            </div>
+        </div>
+        <div class="image right">
+            <div class="img-container">
+                <img class="hidden" data-move="Rock" src="images/fist1.png" alt="rock">
+                <img class="hidden" data-move="Paper" src="images/hand-palm.png" alt="paper">
+                <img class="hidden" data-move="Scissors" src="images/peace.png" alt="scissors">
+            </div>
+        </div>
+        <div class="score">
+            <p class="result"> </p>
+            <p><span class="pWins"></span>-<span class="cpWins"></span></p>
+        </div>
     </div>
     <div class="buttons">
         <button data-move="Rock">Rock</button>

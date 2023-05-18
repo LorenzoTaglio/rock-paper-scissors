@@ -1,13 +1,42 @@
 const buttons = document.querySelectorAll(".buttons > button");
+const retry = document.querySelector(".retry");
+const result = document.querySelector(".result");
+const pWins = document.querySelector(".pWins");
+const cpWins = document.querySelector(".cpWins");
+const hands = document.querySelectorAll(".img-container");
+let computerWins = 0, playerWins = 0;
+retry.classList.add("hidden");
 
-buttons.forEach(button =>{
-  button.addEventListener("click", (e)=>{console.log(getPlayerChoice(e))});
-})
 
-function getPlayerChoice(event) {
-  return event.target.dataset.move
+function displayScore(){
+  pWins.textContent = playerWins;
+  cpWins.textContent = computerWins;
 }
 
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    game(e);
+  });
+});
+
+retry.addEventListener("click", event =>{
+  computerWins = 0;
+  playerWins = 0;
+  displayScore();
+  retry.classList.replace("visible","hidden");
+})
+
+function clearHands(){
+  hands.forEach(handContainer=>{
+    for(let i=0; i< handContainer.children.length;i++){
+      handContainer.children[i].classList.add("hidden");
+    }
+  })
+}
+
+function getPlayerChoice(event) {
+  return event.target.dataset.move;
+}
 
 function getComputerChoice() {
   let randomChoice = Math.floor(Math.random() * 3);
@@ -15,14 +44,7 @@ function getComputerChoice() {
   else if (randomChoice === 1) return "Paper";
   else return "Scissors";
 }
-/*(NO LONGER NEEDED)
-function capitalize(string) {
-  if (string !== null)
-    return (
-      string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase()
-    );
-}
-*/
+
 function playRound(playerSelection, computerSelection) {
   let win;
   switch (playerSelection) {
@@ -55,47 +77,48 @@ function playRound(playerSelection, computerSelection) {
   return win;
 }
 
-function game() {
-  let playerSelection, computerSelection;
-  let playerWins = 0,
-    computerWins = 0;
-  let roundResults;
-  for (let i = 0; i < 5; i++) {
-    // Asks the user for input until it is valid (NO LONGER NEEDED)
-    /*
-    do {
-      playerSelection = capitalize(prompt("Choose move"));
-    } while (
-      playerSelection !== "Rock" &&
-      playerSelection !== "Paper" &&
-      playerSelection !== "Scissors"
-        ? (console.log("Player selection invalid."), true)
-        : false
-    );
-    */
-    computerSelection = getComputerChoice();
+function game(event) {
+  if(playerWins === 5 || computerWins === 5){
+    return;
+  }
+  
+  computerSelection = getComputerChoice();
+  playerSelection = getPlayerChoice(event);
 
-    roundResults = playRound(playerSelection, computerSelection);
-    if (roundResults === true) {
-      playerWins++;
-      console.log(
-        "You win! " + playerSelection + " beats " + computerSelection
-      );
-    } else if (roundResults === false) {
-      computerWins++;
-      console.log(
-        "You lose! " + computerSelection + " beats " + playerSelection
-      );
-    } else if (roundResults === null) {
-      console.log("It's a tie!");
-    }
+  let cpHand = document.querySelector(`.image.right img[data-move=${computerSelection}`);
+  let pHand = document.querySelector(`.image.left img[data-move=${playerSelection}`);
+  
+  clearHands();
+
+  cpHand.classList.remove("hidden");
+  pHand.classList.remove("hidden");
+
+  roundResults = playRound(playerSelection, computerSelection);
+  if (roundResults === true) {
+    playerWins++;
+    result.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+  } else if (roundResults === false) {
+    computerWins++;
+    result.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
+  } else if (roundResults === null) {
+    result.textContent = "It's a tie!";
   }
 
+  displayScore();
+
+  if(playerWins === 5){
+    retry.classList.replace("hidden","visible");
+    result.textContent = "Player Wins!";
+  }
+  else if(computerWins === 5){
+    retry.classList.replace("hidden","visible");
+    result.textContent = "Computer Wins!";
+  }
+  /*
   if (playerWins > computerWins) console.log("Player wins!");
   else if (computerWins > playerWins) console.log("Computer wins!");
   else console.log("Tie!");
+  */
 }
-
-
-
 // game();
+displayScore();
